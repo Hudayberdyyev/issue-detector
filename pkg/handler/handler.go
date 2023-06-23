@@ -14,8 +14,8 @@ func NewHandler(repo *repository.Repository) *Handler {
 }
 
 func (r *Handler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	switch req.URL.Path {
-	case "/checkIp":
+	switch req.Method + ":" + req.URL.Path {
+	case "POST:/checkIp":
 		checkIP(w, req)
 	default:
 		http.NotFound(w, req)
