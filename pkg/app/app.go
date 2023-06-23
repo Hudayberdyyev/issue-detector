@@ -30,7 +30,7 @@ func Init(config Config) error {
 		Handler: handlers,
 	}
 
-	fmt.Printf("Server started on port(%s) ...", config.Port)
+	fmt.Printf("Server started on port(%s) ...\n", config.Port)
 	log.Fatal(server.ListenAndServe())
 	return nil
 }
