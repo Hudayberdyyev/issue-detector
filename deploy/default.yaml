@@ -1,0 +1,20 @@
+host: 127.0.0.1
+port: 9625
+hosts_db:
+  port: 5454
+  host: localhost
+  database: tmtube
+  user: tmtube_admin
+  password: 3Qv@e8U0ImT
+users_db:
+  port: 5454
+  host: localhost
+  database: tmtube
+  user: tmtube_admin
+  password: 3Qv@e8U0ImT
+check_ip_history_db:
+  port: 5454
+  host: localhost
+  database: tmtube
+  user: tmtube_admin
+  password: 3Qv@e8U0ImT
