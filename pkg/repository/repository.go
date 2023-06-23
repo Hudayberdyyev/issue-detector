@@ -14,6 +14,6 @@ type Repository struct {
 func NewRepository(hostsDB, usersDB, checkIpDB *Database) *Repository {
 	return &Repository{
 		IReader: NewReader(hostsDB, usersDB),
-		IWriter: nil,
+		IWriter: NewWriter(checkIpDB),
 	}
 }
