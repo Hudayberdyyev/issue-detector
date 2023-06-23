@@ -1,9 +1,12 @@
 package repository
 
 type IReader interface {
+	GetAccessStatusFromUsersDB(userId int) (int, error)
+	GetAccessStatusFromHosts(ip string) (int, error)
 }
 
 type IWriter interface {
+	SaveCheckIpLogToDB(checkIpData CheckIpModel) error
 }
 
 type Repository struct {
