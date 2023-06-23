@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"issue-detector/pkg/handler"
 	"issue-detector/pkg/repository"
 	"log"
@@ -29,6 +30,7 @@ func Init(config Config) error {
 		Handler: handlers,
 	}
 
+	fmt.Printf("Server started on port(%s) ...", config.Port)
 	log.Fatal(server.ListenAndServe())
 	return nil
 }
