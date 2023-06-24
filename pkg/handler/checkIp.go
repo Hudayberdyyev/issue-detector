@@ -7,6 +7,12 @@ import (
 )
 
 func (h *Handler) checkIP(w http.ResponseWriter, r *http.Request) {
+	// Simple authorization middleware
+	if r.Header.Get(AuthorizationHeader) != h.secretKey {
+		http.Error(w, "invalid secret key", http.StatusBadRequest)
+		return
+	}
+
 	// Read the request body
 	var checkIpRequest CheckIpBody
 	err := json.NewDecoder(r.Body).Decode(&checkIpRequest)

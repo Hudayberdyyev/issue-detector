@@ -6,4 +6,6 @@ const (
 
 	InvalidUserId = 0
 	SignInAccess  = "kaHJDdGHJdLHgjHkGJH5Gj"
+
+	AuthorizationHeader = "Authorization"
 )

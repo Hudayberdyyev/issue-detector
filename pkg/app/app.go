@@ -24,7 +24,7 @@ func Init(config Config) error {
 	}
 
 	repo := repository.NewRepository(hostsDb, usersDb, checkIpDb)
-	handlers := handler.NewHandler(repo)
+	handlers := handler.NewHandler(repo, config.SecretToken)
 	server := http.Server{
 		Addr:    ":" + config.Port,
 		Handler: handlers,

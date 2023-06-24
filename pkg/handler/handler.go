@@ -6,11 +6,15 @@ import (
 )
 
 type Handler struct {
-	repo *repository.Repository
+	secretKey string
+	repo      *repository.Repository
 }
 
-func NewHandler(repo *repository.Repository) *Handler {
-	return &Handler{repo: repo}
+func NewHandler(repo *repository.Repository, secretKey string) *Handler {
+	return &Handler{
+		secretKey: secretKey,
+		repo:      repo,
+	}
 }
 
 func (h *Handler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
