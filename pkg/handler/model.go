@@ -11,6 +11,38 @@ type TokenClaims struct {
 	UserId int
 }
 
+type RefreshTokenBody struct {
+	RequestFingerprint   string `json:"request_fingerprint"`
+	RequestRefreshToken  string `json:"request_refresh_token"`
+	ResponseRefreshToken string `json:"response_refresh_token"`
+	ResponseAccessToken  string `json:"response_access_token"`
+	ResponseStatusCode   int    `json:"response_status_code"`
+	ResponseMessage      string `json:"response_message"`
+	ErrorCode            string `json:"error_code"`
+}
+
+func (r RefreshTokenBody) GetRefreshTokenDbModel() repository.RefreshTokenModel {
+	return repository.RefreshTokenModel{
+		UserId:               r.GetUserIdFromAccessToken(),
+		RequestFingerprint:   r.RequestFingerprint,
+		RequestRefreshToken:  r.RequestRefreshToken,
+		ResponseRefreshToken: r.ResponseRefreshToken,
+		ResponseAccessToken:  r.ResponseAccessToken,
+		ResponseStatusCode:   r.ResponseStatusCode,
+		ResponseMessage:      r.ResponseMessage,
+		ErrorCode:            r.ErrorCode,
+	}
+}
+
+func (r RefreshTokenBody) GetUserIdFromAccessToken() int {
+	accessToken := r.ResponseAccessToken
+	claims, err := parseToken(accessToken)
+	if err != nil || claims == nil {
+		return InvalidUserId
+	}
+	return claims.UserId
+}
+
 type CheckIpBody struct {
 	AuthorizationHeader     string `json:"authorization_header"`
 	UserAgentHeader         string `json:"user_agent_header"`
@@ -25,6 +57,7 @@ type CheckIpBody struct {
 
 func (c CheckIpBody) GetCheckIpModel() repository.CheckIpModel {
 	return repository.CheckIpModel{
+		UserId:                  c.GetUserIdFromAccessToken(),
 		AuthorizationHeader:     c.AuthorizationHeader,
 		UserAgentHeader:         c.UserAgentHeader,
 		MacAddressHeader:        c.MacAddressHeader,
@@ -41,6 +74,7 @@ func (c CheckIpBody) GetCheckIpModel() repository.CheckIpModel {
 
 func (c CheckIpBody) GetCheckIpModelWithArgs(dbIpAccess, dbUserAccess int) repository.CheckIpModel {
 	return repository.CheckIpModel{
+		UserId:                  c.GetUserIdFromAccessToken(),
 		AuthorizationHeader:     c.AuthorizationHeader,
 		UserAgentHeader:         c.UserAgentHeader,
 		MacAddressHeader:        c.MacAddressHeader,

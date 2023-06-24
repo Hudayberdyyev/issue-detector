@@ -1,6 +1,6 @@
 host: 127.0.0.1
 port: 9625
-secret_token: HACK_ME_TOKEN
+secret_token: Bearer HACK_ME_TOKEN
 hosts_db:
   port: 5454
   host: localhost

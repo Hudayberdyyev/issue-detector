@@ -7,6 +7,7 @@ type IReader interface {
 
 type IWriter interface {
 	SaveCheckIpLogToDB(checkIpData CheckIpModel) error
+	SaveRefreshTokenToDB(refreshTokenData RefreshTokenModel) error
 }
 
 type Repository struct {
